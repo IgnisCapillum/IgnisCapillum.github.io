@@ -1,31 +1,22 @@
-let myDiv = document.getElementById("my-div");
-//Detect touch device
-function isTouchDevice() {
-  try {
-    //We try to create TouchEvent. It would fail for desktops and throw error
-    document.createEvent("TouchEvent");
-    return true;
-  } catch (e) {
-    return false;
-  }
+const messages = [
+    "NIe kocham cb",
+    "Nienawidze cb",
+    "nie?",
+    "hmpf",
+    "raczej nie",
+];
+
+let messageIndex = 0;
+
+function handleNoClick() {
+    const noButton = document.querySelector('.no-button');
+    const yesButton = document.querySelector('.yes-button');
+    noButton.textContent = messages[messageIndex];
+    messageIndex = (messageIndex + 1) % messages.length;
+    const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+    yesButton.style.fontSize = `${currentSize * 1.5}px`;
 }
 
-const move = (e) => {
-  //Try, catch to avoid any errors for touch screens (Error thrown when user doesn't move his finger)
-  try {
-    //PageX and PageY return the position of client's cursor from top left of screen
-    var x = !isTouchDevice() ? e.pageX : e.touches[0].pageX;
-    var y = !isTouchDevice() ? e.pageY : e.touches[0].pageY;
-  } catch (e) {}
-  //set left and top of div based on mouse position
-  myDiv.style.left = x  + "px";
-  myDiv.style.top = y  + "px";
-};
-//For mouse
-document.addEventListener("mousemove", (e) => {
-  move(e);
-});
-//For touch
-document.addEventListener("touchmove", (e) => {
-  move(e);
-});
+function handleYesClick() {
+    window.location.href = "yes_page.html";
+}
