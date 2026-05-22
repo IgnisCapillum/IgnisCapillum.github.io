@@ -53,7 +53,7 @@
             height: 45px;
             width: auto;
             object-fit: contain;
-            background-color: #fdf5e6; /* Estetyczne tło dla małego logo w menu */
+            background-color: #fdf5e6; 
             padding: 2px;
             border-radius: 4px;
         }
@@ -89,7 +89,7 @@
             color: var(--orange);
         }
 
-        /* SEKCJA HERO: Przywrócona grafika w tle z poprawionym pozycjonowaniem */
+        /* SEKCJA HERO */
         #hero {
             min-height: 100vh;
             display: flex;
@@ -98,10 +98,9 @@
             align-items: center;
             text-align: center;
             background: linear-gradient(rgba(20, 20, 20, 0.75), rgba(20, 20, 20, 0.9)), url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover;
-            padding: 140px 20px 60px 20px; /* Zwiększony górny margines, aby menu nie uciekało na logo */
+            padding: 140px 20px 60px 20px; 
         }
 
-        /* POPRAWKA MOBILNA LOGO: Ładne wkomponowanie kwadratowego tła */
         .hero-logo-large {
             max-width: 240px;
             width: 100%;
@@ -109,10 +108,10 @@
             object-fit: contain;
             margin-bottom: 25px;
             display: block;
-            background-color: #fdf5e6; /* Oryginalny kremowy kolor z Twojego logo */
+            background-color: #fdf5e6; 
             padding: 10px;
-            border-radius: 8px; /* Delikatnie zaokrąglone rogi dla nowoczesnego wyglądu */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* Cień izolujący logo od ciemnego tła */
+            border-radius: 8px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
         }
 
         #hero h1 {
@@ -294,24 +293,109 @@
             filter: grayscale(100%) invert(90%) contrast(80%);
         }
 
-        /* Stopka */
+        /* Stopka i linki prawne */
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
             background-color: #050505;
             color: var(--gray);
             font-size: 12px;
             border-top: 1px solid #1a1a1a;
         }
 
+        .legal-links {
+            margin-top: 10px;
+        }
+
+        .legal-links a {
+            color: var(--gray);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .legal-links a:hover {
+            color: var(--orange);
+        }
+
+        /* STYLE DLA OKIEN KONSULTACJI PRAWNEJ (MODAL) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            color: #eeeeee;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid var(--orange);
+            width: 100%;
+            max-width: 700px;
+            border-radius: 8px;
+            position: relative;
+            text-align: left;
+        }
+
+        .modal-content h2 {
+            color: var(--orange);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 22px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .modal-content h3 {
+            color: var(--gold);
+            margin: 20px 0 10px 0;
+            font-size: 16px;
+        }
+
+        .modal-content p, .modal-content ul {
+            font-size: 14px;
+            color: #ccc;
+            margin-bottom: 15px;
+            padding-left: 5px;
+        }
+
+        .modal-content ul {
+            padding-left: 20px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: var(--gray);
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--orange);
+        }
+
         /* Responsywność dla smartfonów */
         @media (max-width: 768px) {
             header { padding: 10px 20px; flex-direction: column; gap: 10px; }
             nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
-            #hero { padding-top: 170px; } /* Zapewnia odpowiednio dużo miejsca pod menu nawigacyjnym */
+            #hero { padding-top: 170px; } 
             #hero h1 { font-size: 38px; }
             .menu-wrapper { grid-template-columns: 1fr; }
             .hero-logo-large { max-width: 190px; padding: 6px; }
+            .modal-content { padding: 20px; }
         }
     </style>
 </head>
@@ -555,8 +639,74 @@
     </section>
     
     <footer>
-        © 2026 Doner Kebab TwojaStacja. Wszelkie prawa zastrzeżone.
+        <div>© 2026 Doner Kebab TwojaStacja. Wszelkie prawa zastrzeżone.</div>
+        <div class="legal-links">
+            <a onclick="openModal('tos-modal')">Regulamin Serwisu</a> | 
+            <a onclick="openModal('privacy-modal')">Polityka Prywatności</a>
+        </div>
     </footer>
+
+    <div id="tos-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('tos-modal')">&times;</span>
+            <h2>Regulamin Serwisu</h2>
+            <p><strong>Ostatnia aktualizacja:</strong> Maj 2026</p>
+            <p>Witamy na stronie internetowej TwojaStacja. Korzystając z naszej strony, akceptujesz poniższe warunki.</p>
+            
+            <h3>1. Postanowienia Ogólne</h3>
+            <p>Niniejsza strona ma charakter wyłącznie informacyjny. Prezentuje aktualne menu restauracji "TwojaStacja" zlokalizowanej w Warszawie przy ul. Wałbrzyskiej 48A/25 oraz dane kontaktowe.</p>
+            
+            <h3>2. Usługi i Ceny</h3>
+            <p>Ceny podane w menu są cenami brutto wyrażonymi w złotych polskich (PLN). Mimo dokładania wszelkich starań, zastrzegamy sobie prawo do zmian cen oraz dostępności dań w lokalu bez uprzedzenia.</p>
+            
+            <h3>3. Zamówienia Zewnętrzne (Dostawa)</h3>
+            <p>Strona nie realizuje bezpośredniej sprzedaży internetowej. Wszelkie zamówienia online realizowane są za pośrednictwem zewnętrznych partnerów (UberEats, BoltFood, Glovo, Pyszne.pl). Nie ponosimy odpowiedzialności za błędy, opóźnienia lub politykę cenową operatorów tych aplikacji.</p>
+            
+            <h3>4. Wyłączenie Odpowiedzialności</h3>
+            <p>Właściciel strony nie gwarantuje stałego i bezbłędnego działania witryny oraz nie odpowiada za ewentualne szkody wynikające z jej użytkowania.</p>
+        </div>
+    </div>
+
+    <div id="privacy-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('privacy-modal')">&times;</span>
+            <h2>Polityka Prywatności i Cookies</h2>
+            <p><strong>Ostatnia aktualizacja:</strong> Maj 2026</p>
+            <p>Prywatność naszych gości odwiedzających stronę internetową jest dla nas priorytetem.</p>
+            
+            <h3>1. Administrator Danych</h3>
+            <p>Administratorem danych osobowych (w przypadku kontaktu telefonicznego) jest właściciel marki "TwojaStacja" z siedzibą w Warszawie przy ul. Wałbrzyskiej 48A/25.</p>
+            
+            <h3>2. Zbieranie Danych</h3>
+            <p>Strona internetowa nie posiada formularza kontaktowego ani newslettera. Nie zbieramy Twoich danych personalnych (takich jak imię, nazwisko czy e-mail) w sposób automatyczny, chyba że zdecydujesz się na kontakt telefoniczny – wtedy przetwarzamy Twój numer wyłącznie w celu obsługi zapytania.</p>
+            
+            <h3>3. Pliki Cookies (Ciasteczka)</h3>
+            <p>Nasza witryna może korzystać z podstawowych plików cookies w celu poprawnego ładowania elementów graficznych (takich jak logo lub mapy Google). Możesz w każdej chwili wyłączyć lub ograniczyć obsługę plików cookies w ustawieniach swojej przeglądarki internetowej.</p>
+            
+            <h3>4. Usługi Podmiotów Trzecich</h3>
+            <p>Na stronie zintegrowana jest mapa Google Maps oraz linki do platform dostawczych. Podmioty te mogą zbierać własne dane i pliki cookies zgodnie ze swoją polityką prywatności, na którą nie mamy wpływu.</p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            document.body.style.overflow = "hidden"; // Blokuje przewijanie strony w tle
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto"; // Przywraca przewijanie strony
+        }
+
+        // Zamknięcie okna po kliknięciu gdziekolwiek poza nim
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+    </script>
 
 </body>
 </html>
