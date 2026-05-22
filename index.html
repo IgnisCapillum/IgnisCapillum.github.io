@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TwojaStacja | Doner Kebab Premium</title>
+    <style>
+        /* Główne zmienne dostosowane do rzemieślniczego logo */
+        :root {
+            --orange: #d84b16; /* Ciepły pomarańcz/terakota z logo */
+            --gold: #d4af37;
+            --dark: #141414;
+            --darker: #0b0b0b;
+            --light: #f9f9f9;
+            --gray: #aaaaaa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Nawigacja */
+        header {
+            position: fixed;
+            width: 100%;
+            background: rgba(11, 11, 11, 0.95);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid #222;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+        }
+
+        .logo-img {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+            background-color: #fdf5e6; /* Estetyczne tło dla małego logo w menu */
+            padding: 2px;
+            border-radius: 4px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--light);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .logo-text span {
+            color: var(--orange);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--orange);
+        }
+
+        /* SEKCJA HERO: Przywrócona grafika w tle z poprawionym pozycjonowaniem */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(20, 20, 20, 0.75), rgba(20, 20, 20, 0.9)), url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover;
+            padding: 140px 20px 60px 20px; /* Zwiększony górny margines, aby menu nie uciekało na logo */
+        }
+
+        /* POPRAWKA MOBILNA LOGO: Ładne wkomponowanie kwadratowego tła */
+        .hero-logo-large {
+            max-width: 240px;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 25px;
+            display: block;
+            background-color: #fdf5e6; /* Oryginalny kremowy kolor z Twojego logo */
+            padding: 10px;
+            border-radius: 8px; /* Delikatnie zaokrąglone rogi dla nowoczesnego wyglądu */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* Cień izolujący logo od ciemnego tła */
+        }
+
+        #hero h1 {
+            font-size: 54px;
+            font-weight: 300;
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        #hero h1 span {
+            color: var(--orange);
+            font-weight: 700;
+        }
+
+        #hero p {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 600px;
+            margin-bottom: 35px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            background-color: var(--orange);
+            color: var(--light);
+            border: 2px solid var(--orange);
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--orange);
+        }
+
+        /* Przyciski aplikacji delivery */
+        .delivery-apps {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .app-badge {
+            background: #222;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--gold);
+            border: 1px solid #333;
+        }
+
+        /* Wspólne dla sekcji */
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 300;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .section-title span {
+            color: var(--orange);
+            font-weight: 700;
+        }
+
+        /* Menu */
+        .menu-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 60px;
+        }
+
+        .menu-category-title {
+            font-size: 24px;
+            color: var(--light);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--orange);
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .menu-item {
+            margin-bottom: 25px;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 5px;
+        }
+
+        .menu-item-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .menu-item-price {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--light);
+            white-space: nowrap;
+            margin-left: 15px;
+        }
+
+        .menu-item-desc {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* Kontakt & Info */
+        #kontakt {
+            background-color: var(--darker);
+            padding: 80px 20px;
+            border-top: 1px solid #222;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info h3 {
+            color: var(--orange);
+            margin-bottom: 20px;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            color: var(--gray);
+            font-size: 16px;
+        }
+
+        .contact-info strong {
+            color: var(--light);
+        }
+
+        .phone-number {
+            font-size: 28px;
+            color: var(--gold);
+            font-weight: bold;
+            margin: 20px 0;
+            display: block;
+        }
+
+        /* Mapka */
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            border: none;
+            border-radius: 5px;
+            filter: grayscale(100%) invert(90%) contrast(80%);
+        }
+
+        /* Stopka */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #050505;
+            color: var(--gray);
+            font-size: 12px;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        /* Responsywność dla smartfonów */
+        @media (max-width: 768px) {
+            header { padding: 10px 20px; flex-direction: column; gap: 10px; }
+            nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            #hero { padding-top: 170px; } /* Zapewnia odpowiednio dużo miejsca pod menu nawigacyjnym */
+            #hero h1 { font-size: 38px; }
+            .menu-wrapper { grid-template-columns: 1fr; }
+            .hero-logo-large { max-width: 190px; padding: 6px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo-group">
+            <img src="logo.png" alt="Logo TwojaStacja" class="logo-img">
+            <span class="logo-text">Twoja<span>Stacja</span></span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#hero">Start</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#kontakt">Kontakt & Dostawa</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <img src="logo.png" alt="Logo Doner Kebab TwojaStacja" class="hero-logo-large">
+        <h1>PRAWDZIWY <span>KEBAB</span></h1>
+        <p>Jakość, na którą zasługujesz. Soczysta wołowina, autentyczne Pide, chrupiący Lahmacun i bułki wypiekane na miejscu. Odbierz osobiście lub zamów z dostawą pod same drzwi.</p>
+        <a href="#menu" class="btn">Zobacz Menu</a>
+        
+        <div class="delivery-apps">
+            <span class="app-badge">UberEats</span>
+            <span class="app-badge">BoltFood</span>
+            <span class="app-badge">Glovo</span>
+            <span class="app-badge">Pyszne.pl</span>
+        </div>
+    </section>
+
+    <section id="menu">
+        <h2 class="section-title">Nasze <span>Menu</span></h2>
+        
+        <div class="menu-wrapper">
+            
+            <div>
+                <h3 class="menu-category-title">Kanapki / Boxy</h3>
+                
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">1. Kebab Rolada</span>
+                        <span class="menu-item-price">24 zł / 27 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Mięso wołowe, lawasz, surówka (sałata, pomidory, cebula), sos. (Mały / Duży)</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">2. Kebab w bułce</span>
+                        <span class="menu-item-price">26 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Wypiekana na miejscu! Mięso wołowe, bułka, surówka (sałata, pomidory, cebula), sos.</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">3. Talerz kebab</span>
+                        <span class="menu-item-price">27 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Mięso wołowe, frytki, surówka (sałata, pomidory, cebula), sos.</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">4. Kebab box</span>
+                        <span class="menu-item-price">25 zł / 29 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Mięso, frytki, surówka (sałata, pomidory, cebula), sos. (Mały / Duży)</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">5. Kebab z serem</span>
+                        <span class="menu-item-price">27 zł / 30 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Mięso wołowe, lawasz, ser, surówka (sałata, pomidory, cebula), sos. (Mały / Duży)</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">6. Kebab z frytkami</span>
+                        <span class="menu-item-price">27 zł / 30 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Mięso wołowe, frytki, surówka (sałata, pomidory, cebula), sos. (Mały / Duży)</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">7. Kebab z serem i frytkami</span>
+                        <span class="menu-item-price">29 zł / 32 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Mięso wołowe, lawasz, ser, frytki, surówka (sałata, pomidory, cebula), sos. (Mały / Duży)</div>
+                </div>
+
+                <h3 class="menu-category-title" style="margin-top: 40px;">Zupy & Lahmacun</h3>
+                
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">Zupa Merci</span>
+                        <span class="menu-item-price">18 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Soczewica, marchewka, cebula, przyprawy.</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">Lahmacun (2 szt)</span>
+                        <span class="menu-item-price">34 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Cienkie ciasto, mięso wołowe, pomidor, pietruszka, papryka.</div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="menu-category-title">Pide</h3>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">1. Pide klasyczne</span>
+                        <span class="menu-item-price">32 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Mielone mięso, cebula, pomidor, pietruszka.</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">2. Pide z serem</span>
+                        <span class="menu-item-price">32 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Mielone mięso, cebula, pomidor, pietruszka, ser.</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">3. Pide z jajkiem</span>
+                        <span class="menu-item-price">33 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Mielone mięso, cebula, pomidor, pietruszka, ser, jajko.</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">4. Pide cheddar</span>
+                        <span class="menu-item-price">32 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Mielone mięso, ser cheddar.</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">5. Pide kusbasi</span>
+                        <span class="menu-item-price">35 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Mielone mięso, pomidor, ser, cebula, pietruszka, papryka.</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">6. Pide salami</span>
+                        <span class="menu-item-price">33 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Salami, ser.</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">7. Pide pieczarki</span>
+                        <span class="menu-item-price">32 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Mielone mięso, pieczarki, ser.</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">8. Pide wege</span>
+                        <span class="menu-item-price">32 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Cebula, papryka, cukinia, marchewka, pomidor, pieczarki.</div>
+                </div>
+
+                <h3 class="menu-category-title" style="margin-top: 40px;">Desery, Napoje & Dodatki</h3>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">Baklava (szt.)</span>
+                        <span class="menu-item-price">8 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Ciasto z orzechami, pistacjami, migdałami i miodem.</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <span class="menu-item-title">Miodovik (szt.)</span>
+                        <span class="menu-item-price">12 zł</span>
+                    </div>
+                    <div class="menu-item-desc">Ciasto warstwowe z miodem i kremem.</div>
+                </div>
+
+                <div class="menu-item" style="margin-top: 20px;">
+                    <div class="menu-item-desc">
+                        <strong style="color:var(--light);">Napoje:</strong> Fanta/Sprite/Cola 0,3L/0,5L (7/9 zł) • Cola 250ml (6 zł) • Woda 0,5L (6 zł) • Ayran 0,33L (7 zł) • Cappy 0,5L (9 zł) • Fuze tea 0,5L (9 zł) • Herbata (4 zł)
+                    </div>
+                </div>
+
+                <div class="menu-item" style="margin-top: 10px;">
+                    <div class="menu-item-desc">
+                        <strong style="color:var(--light);">Dodatki:</strong> Frytki (8 zł) • Sos (3 zł)
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt" style="padding: 0; max-width: 100%;">
+        <div style="background-color: var(--darker); padding: 80px 20px;">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Zamówienia i Kontakt</h3>
+                    <p>Wpadnij do nas osobiście lub zamów jedzenie z dostawą przez jedną z popularnych aplikacji.</p>
+                    
+                    <span class="phone-number">+48 666 629 013</span>
+                    
+                    <p><strong>Lokalizacja:</strong> ul. Wałbrzyska 48A/25, Warszawa</p>
+                    <p><strong>Znajdziesz nas na:</strong> UberEats, BoltFood, Glovo, Pyszne.pl</p>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="map-container">
+                        <iframe 
+                            src="https://maps.google.com/maps?q=Wa%C5%82brzyska%2048A/25,%20Warszawa&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        © 2026 Doner Kebab TwojaStacja. Wszelkie prawa zastrzeżone.
+    </footer>
+
+</body>
+</html>
